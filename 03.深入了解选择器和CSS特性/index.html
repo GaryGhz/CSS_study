@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Course</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <nav>
+        <!-- 01.a. 网页上的ID有除了CSS以外的意义,主要指可以 "链接" 到ID的内容  -->
+        <!-- 这里a标签的href属性链接到的是ID名, 所以点击这个链接时, 就会跳转到有这个ID名的元素上 -->
+        <!-- 这是HTML的内置功能 -->
+        <a href="#intro" class="active" id="jojo">Intro</a>
+        <a href="#outro">Outro</a>
+    </nav>
+    <section id="intro" class="main-section highlighted">
+        <p>This is the intro section.</p>
+    </section>
+    <section id="outro" class="main-section">
+        <p>This is the outro section.</p>
+    </section>
+</body>
+
+</html>

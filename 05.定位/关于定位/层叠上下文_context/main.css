@@ -1,0 +1,93 @@
+/* 对于所有的父元素, 我们都把它们按照空间纵轴 z 层一层又一层的重叠排列,
+通过添加 position: fixed; 的属性, 每一个元素都有自己的层叠上下文,
+所以呢, 对于所有 headline 的子元素, z-index 属性只会影响它们在 headline
+元素里位置的层叠关系,但是对于 headline 元素以及其子元素的位置, 会发现它们的
+重叠顺序就是由我们在 headline 元素中设置的 z-index 确定的. 
+什么意思呢?
+如果我们改变 headline 元素的 z-index 值, 设置为 200, 那么 headline 就会在
+contact-us 上面, 包括 headline 元素的子元素也会覆盖 contact-us 元素,
+我们可以给类名为 class-* 的元素任意设置 z-index 值, 因为它们也在 headline 元素
+的层叠上下文范围内.
+因为父元素和其子元素的位置, 和其中单独每个子元素中的 z-index 并没有什么关系, 只有
+父元素本身的 z-index 值才会影响到整个元素以及其子元素的位置.*/
+
+/* 注意: 当我们给一个元素添加 position: fixed; 时(其实还有 sticky), 程序就会自动
+创建一个新的层叠上下文. 无论你是否会自己给它添加一个堆叠顺序 z-index.
+但是对于 relative 和 absolute 则是不同的情况, 这两个仅会在我们自己指定堆叠顺序后
+(也就是加上 z-index 的值)才会创建一个新的层叠上下文 */
+
+html {
+    background: #b3b3b3;
+    padding: 15px;
+    border: 5px solid white;
+    margin: 15px;
+    height: 2000px;
+}
+
+body {
+    background: white;
+    padding: 20px;
+    border: 5px solid black;
+    margin: 0;
+    height: 400px;
+}
+
+.navigation, .headline, .contact-us {
+    padding: 20px;
+    border: 5px solid black;
+    margin: 10px;
+    position: fixed;
+}
+
+.headline div {
+    background: rgb(105, 105, 109);
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 130px;
+}
+
+.navigation {
+    background: rgb(255, 109, 109);
+    top: 100px;
+    left: 100px;
+    width: 300px;
+}
+
+.headline {
+    background: rgb(77, 77, 248);
+    top: 150px;
+    left: 150px;
+    width: 270px;
+    height: 200px;
+}
+
+.contact-us {
+    background: rgb(69, 214, 69);
+    top: 180px;
+    left: 320px;
+    width: 180px;
+    z-index: 100;
+}
+
+.image-1 {
+    top: 200px;
+    left: 230px;
+    position: fixed;
+}
+
+.image-2 {
+    top: 230px;
+    left: 260px;
+    position: fixed;
+    /* 我们将 z-index 的值设置为 1000, 比其父元素的兄弟元素 contact-us 大很多,
+    但是会发现 image-2 还是在 contact-us 下面 */
+    z-index: 1000;
+}
+
+.image-3 {
+    left: 300px;
+    top: 260px;
+    position: fixed;
+}

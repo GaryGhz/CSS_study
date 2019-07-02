@@ -1,0 +1,142 @@
+main {
+    padding-top: 1rem;
+}
+
+.signup-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #ff5454;
+}
+
+.signup-form {
+    padding: 1rem;
+}
+
+.signup-form label {
+    font-weight: bold;
+}
+
+/* 使用 :not() 伪类选择器, 选择除了 checkbox 之外的所有input, 因为有些样式就算 checkbox 设置了也不会有变化, 因为它这是一个特殊的元素 */
+
+.signup-form label, .signup-form select, .signup-form input:not([type="checkbox"]) {
+    display: block;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.signup-form select, .signup-form input:not([type="checkbox"]) {
+    border: 1px solid #ccc;
+    padding: 0.2rem 0.5rem;
+    /* 使用自己设定的默认字体而不是浏览器的默认字体 */
+    font: inherit;
+}
+
+/* 指定 input和 select 被选中时的样式 */
+
+.signup-form select:focus, .signup-form input:focus {
+    outline: none;
+    background: #d8f3df;
+    border-color: #2ddf5c;
+}
+
+/* 1. 使用高级属性选择器
+- [type] { ... } 会选中所有带有type属性的元素, 一般都是input标签 <input type="text">
+- [type = "email"] { ... } 会选中 <input type="email">
+- [lang ~= "en-us"] { ... } 选定具有特定属性值得元素, <p lang = "en-us en-gb"> Hi? </p>
+- [lang |= "en"] { ... } 选中lang值为 en或以en开头的元素, <p lang="en-us"> Hi! </p>
+- [href ^= "#"] 选中任何以#开头的元素, 不需要用 '-' 链接, <a href="#all">Link</a>
+- [href $= ".de" { ... }] 还可以指向带有后缀的值, <a href="ab.de">Link</a>
+- [src *= "cdn"] { ... } 选中包含特定值的元素, 不论是在开始结尾还是中间, <img src="i.cdn.com">
+- [src *= "cdn" i] 还可以不区分指定大小写(区分大小写为默认设置), i 就表示为不区分大小写, <img src="i.CDN.com"> */
+
+/* .signup-form input[type="checkbox"] */
+
+.signup-form input[id*="terms"], .signup-form input[id*="terms"]+label {
+    display: inline-block;
+    /* 宽度改为auto, 不然还是会撑满父元素 */
+    width: auto;
+    vertical-align: middle;
+}
+
+/* 给 checkbox 设置样式 */
+
+.signup-form input[type="checkbox"] {
+    /* 2. 
+    - 我们直接给 checkbox 设置 border, background 是不会生效的(select下拉列表也是一样)
+    - 这是因为它们是特殊的输入控件, 都有一个默认的样式: -webkit-appearance
+    - 这个样式决定了它们的默认行为, 比如可以被选中, 会出现下拉箭头. 
+    - checkbox的默认样式是 -webkit-appearance: checkbox; select的默认样式是 -webkit-appearance: menulist; 
+    - 所以我们需要覆盖这个值就可以让样式生效 */
+    border: 1px solid #ccc;
+    background: white;
+    width: 1rem;
+    height: 1rem;
+    /* 禁用默认样式 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* 2.1 
+    - 但是如果将 appearance 设置为 none, checkbox 被选中就不会有样式出现, 其实它被选中了, 只是我们看不见样式
+    - 之前的选中样式是 appearance 在指定
+    - 所以我们需要给它选中状态加上样式也就是 checked 时  */
+
+/* 为 checkbox 指定 checked 时的样式 */
+
+.signup-form input[type="checkbox"]:checked {
+    background: #2ddf5c;
+    border-color: #0e4f1f;
+}
+
+/* 3. 提供验证反馈:
+- 一般使用'服务端验证'的方法, 在点击提交或者登录按钮之后, 就会将 http 请求发送到服务器, 请求发送到服务器后
+  就会在服务器中进行验证, 如果验证失败, 就会将表单页面返回给客户端, 再次趁现在客户面前, 并且你要将无效的输入
+  标记为无效, 而为用户提供这种反馈信息的有两种方法: 
+  - a. 指定一些特殊的CSS类, 如果用户的输入无效, 该输入控件就会与这些类关联, 当页面被重新渲染时, 服务器端会
+       给输入控件添加表示输入无效的类或者通过 JavaScript 把这个类关联到客户端上的输入控件上
+  - b. 实际上 HTML 和 CSS 有更优雅的做法, CSS有一个特殊的伪选择器 invalid
+       我们再添加一个特殊的规则: .signup-form :invalid { ... }
+       这个规则表示选中 .signup-form 之后的所有后代元素的 :invalid
+       使用该伪类后, HTML或者说是浏览器会自动地验证这个输入, 当你对这个input失去焦点时, 它就会自动验证,
+       无效就会应用设置的样式
+  - c. 也还存在 valid 伪选择器, 它和 invalid 的效果刚好相反
+- 如果你还想验证其他用户输入, 你可以添加类似 required 的属性, 一种HTML和浏览器功能, 这会告诉浏览器如果
+  输入为空则是无效的, 所以我们可以将这个属性添加到所有输入框上, 所以一开始都是红色的, 因为他们都是空的
+  只有在我们输入一些内容时这种无效的状态才会消失
+- 如果你不喜欢一进页面全是红, 那么你可以将 选择器改为不要选中任何在 signup-form 里的无效元素, 而是选中
+  在 signup-form 里的具有类 needs-validation 的元素(当然你可以随意指定要选中的类), 然后通过JS在点击
+  提交按钮的时候, 动态的添加这个类, 这样一来只有在用户进行一定的操作后, 浏览器才会添加这些样式
+  .signup-form.needs-validation :invalid { ... }  */
+
+/* 指定无效input的样式 */
+
+.signup-form input.invalid, .signup-form select.invalid, .signup-form :invalid {
+    /* 添加 !important 为了让它不被上面优先级更高的规则覆盖 -> .signup-form input:not([type="checkbox"]) */
+    border-color: red !important;
+    background: #faacac;
+}
+
+.signup-form button[type="submit"] {
+    display: block;
+    margin-top: 1rem;
+}
+
+@media(min-width: 40rem) {
+    .signup-form {
+        width: 25rem;
+        margin: auto;
+        padding: 0;
+    }
+}
+
+/* 4. 如何禁用按钮
+- HTML 代码中添加 disabled 属性, 然后再CSS设置样式
+- 当表单或者一些条件满足就删除这个属性, 所以也需要用到JS*/
+
+.button[disabled] {
+    cursor: not-allowed;
+    border-color: #a1a1a1;
+    background: #ccc;
+    color: #a1a1a1;
+}

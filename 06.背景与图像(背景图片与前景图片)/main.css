@@ -1,0 +1,228 @@
+/* main */
+
+/* main-section-1 */
+
+#product-overview {
+    /* background: url("./freedom.jpg"); */
+    /* 1. 01. background-image
+    我们可以定义多个背景, 可以是图片也可以是纯色, 背景图会在纯色前面 */
+    background-image: url("./images/freedom.jpg");
+    /* background-color: #19b84c; */
+    /* 1. 02. background-size
+    background-size 如果只设置一个值, 那么默认就是宽度, 而高度就会自动调整来保持宽高比.(不设置和auto效果一样)
+    设置为百分比的话就会依据容器的宽度来自动计算. 如果第一个值设为 auto, 第二个值设为 100%, 那么宽度
+    会被自动设置, 并且它会保持图片的宽高比*/
+    /* 除了手动设置宽度和高度外, 还可以使用一些预定义的关键字, cover contain
+     比如 cover(覆盖), 它会让你的图片总是填满整个容器; 还有contain, 它会确保在容器中能看到完整的图片.
+    cover 会找出你的容器的哪一部分(即宽度或高度)在与你的图片对齐时是更重要的, 换句话说, 我们每一张图片实际上有一个宽高比, 
+    比如这里, 它的宽要大于高, 所以它有一种横向的模式, 而这里我们的容器也是如此, 因此 cover 自动地查明, 缩放背景图片以完全
+    覆盖背景区，可能背景图片部分看不见。和 contain 值相反，cover 值尽可能大的缩放背景图像并保持图像的宽高比例（图像不会被
+    压扁）。该背景图以它的全部宽或者高覆盖所在容器。当容器和背景图大小不同时，背景图的 左/右 或者 上/下 部分会被裁剪。  */
+    background-size: cover;
+    /* 1. 03. background-position
+    图片会被自动裁剪, 而这个裁剪我们可以控制, 其实也就是对图片进行定位 background-position */
+    /* 可以直接指定像素值, 第一个值为 x 轴(它确定了应该如何相对于周围容器的左侧边缘来定位图片的左侧边缘), 第二个值为 y 轴(设
+    置图片的上侧边缘与容器的顶部边缘间的距离) */
+    /* 也可以使用百分比数值, 但是它的设置的原理和px不太一样, 使用百分比数值, 你可以确定多余的空间的大小, 即这是相对于图片
+    没有进入容器的那些部分而言, 图片的这些部分该如何分布, 现在对于图片的宽度而言, 整张图片都显示在容器中, 图片的左侧和右侧
+    都没有被裁剪过, 所以我们可以随意输入第一个值, 它不会改变图片的显示方式, 比如我们将它设置为0%, 这也就意味着, 我们没有
+    过剩空间的左侧部分,图片能完美的对齐容器的左侧边缘, 然而如果我们也设置顶部的值, 比如10%, 这意味着, 实际上我们的图片应该
+    有10%的多余空间要超过顶部, (还有如果你只设置了第一个值, 那么第二个值有个默认值 50%, 50% 意味着没有适合容器的图片的所有
+    部分会被裁剪掉, 会从图片底部裁剪50%, 以及顶部裁剪50%, 所以这里我们设置为10%, 只会从图片顶部裁剪10%, 这意味着从图片底部
+    裁剪的部分更多90%, 因此图片在容器中会显著的下移). 如果我们将第二个值设置为100%, 所有需要裁剪的内容会从图片顶部裁剪, 且
+    丝毫不会裁剪图片的底部, 所以这样的结果是图片的底部会完美地对齐容器的底部边缘, 并且所有内容都是从顶部被裁剪*/
+    /* 还可以使用预定义的值, 比如 background-position: center; 等价于 background-position: 50% 50%; 所以设置为 center,
+    图片会完美的居中, 这意味着图片不能在容器中显示的所有部分, 不管它们是Y轴还是在X轴, 左侧和右侧, 顶部和底部都会裁剪掉50%, 这
+    就使得图片的中心就是容器的中心. 还比如 background-position: left top; 等价于 background-position: 0% 0%; 意味着不会裁剪
+    图片的左侧和顶部*/
+    /* 还可以百分比和预定义值结合使用, 比如 background-position: left 10% bottom 20%; 意思就是左边裁剪10%, 底部裁剪20% */
+    background-position: left 10% bottom 20%;
+    /* 1. 04. background
+    background 是一个简写属性: 
+    background-image: 可以设置一个或多个背景图像; 
+    background-color: 设置一种纯色作为背景; 
+    background-position: 设置图像的位置; 
+    background-size: 设置图像的尺寸; 
+    background-repeat: 设置如何重复背景图像; 
+    background-origin: 规定 background-position 属性相对于什么位置来定位。; 
+    background-clip: 设置元素的背景（背景图片或颜色）是否延伸到边框下面。 如果它止于边框或在边框下面显示, 而且是点划线或虚线边框, 你就能看见这些边框下的内容; 
+    background-attachment: 设置图像的滚动行为, 决定背景图像的位置是在视口内固定，还是随着包含它的区块滚动。 */
+    /* 1. 05. background-origin 
+    三个值: padding-box content-box border-box
+    它的值可以类比 box-sizing, 我们先给这个容器添加一个 border 便于观察, 这个属性默认值是 padding-box; 因为图片的宽是刚好嵌入容器的
+    (因为上面设置了 background-size: cover;), 所以对于宽来说, 左右边框是空白的, 这是因为定位的原点是 padding, 如果我们想要图片填充到
+    边框下, 就可以设置 border-box*/
+    background-origin: border-box;
+    /* 1. 06. background-clip
+    三个值: border-box(默认值) padding-box content-box.
+    设置为 border-box 效果和之前一样, 但是如果设置为padding-box 那么上下部分也不会穿过边框 */
+    background-clip: border-box;
+    background-repeat: no-repeat;
+    /* 1. 07. background-attachment
+    三个值: scroll(默认值) fixed local 
+    scroll 元素内容（也就是元素内部滚动条）滚动时，效果与 fixed 相同，但当元素滚动时，背景会跟随元素一起滚动。也就是文档里所说的，背景相对于元素本身固定，元素本身作为滚动的一部分时，背景与元素站在同一阵营;
+    fixed 表示背景相对于视口固定。,当页面的其余部分滚动时，背景图像不会移动;
+    local 表示背景相对于元素的内容固定。如果一个元素拥有滚动机制，背景将会随着元素的内容滚动。元素内部滚动条和外部滚动条滚动时他都会滚动 */
+    /* 1. 08. 简写
+    background: url("./freedom.jpg") left 10% bottom 20%/cover no-repeat border-box; 
+    background-position 和 background-size 通过 / 来区分, 如果只设置一个类似 border-box 的值, 那么会自动给
+    background-origin 和 background-clip 同时设置相同的值, 也可以分开设置, 也就是同时设置两个值, 按照先后顺序 */
+    background: url("./images/freedom.jpg") left 10% bottom 20%/cover border-box no-repeat;
+    /* border: 5px dashed red; */
+    /* 4. 渐变
+    : 不论是什么渐变都要当作图片来对待, 所以我们可以通过 background-image 来添加渐变, 简写中直接替代iamge的位置, 也可以额外添加, 因为可以有多背景 */
+    /* 4. 01. 线性渐变
+    - 通过使用CSS的函数 linear-gradient() 来添加一个线性渐变. 第一个参数是渐变的方向, 可以省略, 那么第一个参数就是一种颜色, 后面的参数都指代颜色
+    - background-image: linear-gradient(red, blue); 得到一个红色到蓝色的渐变, 默认方向是垂直向下的, 也就是 to bottom. 
+    - 也可以设置为比如 to left bottom, background-image: linear-gradient(to left bottom, red, blue); 它就会变成对角线, 从右上角到左下角.
+    - 还可以使用度数来指定方向: 比如 30deg, 那么颜色的渐变就有一个30度的角度, 0deg的话, 实际上渐变会从底部开始, 180deg就是从顶部开始的默认值
+    - 还有一种特殊的渐变, 就是渐变到透明: background-image: linear-gradient(red, transparent); 这样的话, 渐变就会淡出到透明
+    - 除了指定多种颜色, 指定颜色从什么地方开始, 还可以到哪里停止 background-image: linear-gradient(30deg, #FFCCCC 50%, #003366 70%, #CCCCFF);
+      如果你第一个颜色指定 70%, 第二个颜色指定 60%, 就是第二个的数值比第一个小, 那么这两个颜色的转变就会非常突兀, 这是因为颜色的转变没有过渡空间 */
+    background-image: linear-gradient(30deg, #FFCCCC 50%, #003366 70%, #CCCCFF);
+    /* 4. 02. 径向渐变 
+    - background: radial-gradient(shape size at position, start-color, ..., last-color);
+    - 通过使用CSS的函数 radial-gradient() 来添加一个径向渐变. 这不是一种边缘到另一种边缘的渐变, 而是一种以一个确定的形状开始, 然后向它周围各个区域过渡的渐变
+    - 默认位置位于中心, 形状是一个椭圆(ellipse), 比如 background-image: radial-gradient(red, blue);
+    - 可以通过第一个参数来指定为圆形渐变, 这也是唯一可以替代椭圆的选择, background-image: radial-gradient(circle, red, blue);
+    - 也可以修改渐变开始的位置, 比如从顶部开始, 在第一个参数上添加, background-image: radial-gradient(circle at top, red, blue); 也可以设置为 at top left 左上角
+    - 还可以设置为自定义的值,百分比或者px, 比如 radial-gradient(circle 20% 50%, red, blue); 第一个值对应X轴, 第二个值对应Y轴
+    - 我们还可以在形状后面指定渐变的大小, radial-gradient(circle 20px at top, red, blue); 只对圆有效, 椭圆需要指定两个值,  radial-gradient(circle 20px 30px at top, red, blue);
+    - 大小还可以用特定值: 
+        - farthest-corner (默认) : 指定径向渐变的半径长度为从圆心到离圆心最远的角
+        - closest-side ：指定径向渐变的半径长度为从圆心到离圆心最近的边
+        - closest-corner ： 指定径向渐变的半径长度为从圆心到离圆心最近的角
+        - farthest-side ：指定径向渐变的半径长度为从圆心到离圆心最远的边
+    - 和线性渐变一样, 同样可以设置颜色的停止*/
+    background-image: radial-gradient(circle at top, red, blue);
+    /* 5. 多个背景
+    - 我们可以为同一个元素设置多个背景, 当然只有这些背景都在一定程度的透明形式下多个背景才有意义
+    - 还有一点, 只能使用一个纯色,并且这种颜色总是要位于背景的最底层, 而背景图片数量是不受限制的, 渐变也是当作图片处理
+    - 多个背景, 是从左往右的, 左边在最上面, 右边在最下面
+    - 不同背景之间要用逗号隔开, 纯色要放到最后, 背景图片的修饰要和背景图片放在一起 */
+    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent), url("./images/freedom.jpg") left 10% bottom 20%/cover border-box no-repeat, #ff1b68;
+    width: 100%;
+    height: 528px;
+    padding: 10px;
+    /* 消除固定定位影响 */
+    margin-top: 43px;
+    position: relative;
+}
+
+#product-overview h1 {
+    color: white;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+}
+
+/* main-plans */
+
+/* main-section-2 */
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
+}
+
+.plan__list {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.plan {
+    background: #d5ffdc;
+    text-align: center;
+    padding: 16px;
+    margin: 8px;
+    display: inline-block;
+    width: 30%;
+    /* 确保三个article垂直居中对齐 */
+    vertical-align: middle;
+}
+
+.plan--highlighted {
+    background: #19b84c;
+    color: white;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.plan__annotation {
+    background: white;
+    color: #19b84c;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.plan__title {
+    color: #0e4f1f;
+}
+
+.plan__price {
+    color: #918f8f;
+}
+
+.plan--highlighted .plan__title {
+    color: white;
+}
+
+.plan--highlighted .plan__price {
+    color: #0e4f1f;
+}
+
+.plan__features {
+    list-style: none;
+    /* 清楚列表默认的margin和padding */
+    margin: 0;
+    padding: 0;
+}
+
+.plan__feature {
+    margin: 8px 0;
+}
+
+/* main-section-3 */
+
+#key-features {
+    background: #ff1b68;
+    margin-top: 80px;
+    padding: 16px;
+}
+
+#key-features .section-title {
+    color: white;
+    margin: 32px;
+}
+
+.key-feature__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.key-feature {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.key-feature__image {
+    background: #ffcede;
+    width: 128px;
+    height: 128px;
+    border: 2px solid #424242;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.key-feature__description {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}

@@ -1,0 +1,118 @@
+// 如果是从 css 导入, 而不是 scss 或 sass 文件导入, 那么 sass 编译后会原样保留这个导入的文件
+// 也就是说在浏览器的请求中会请求这个CSS文件
+// @import "typography.css";
+// 7. 使用更好的 Import: 导入 SCSS 文件, 这样浏览器在加载时
+// 就不会请求这个scss文件, 所以我们减少了http请求, 相当于只有一个大的css文件
+@import "_variables.scss";
+@import "typography.scss";
+
+html {
+  font-size: 94.75%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  // 2. 嵌套属性
+  flex: {
+    direction: column;
+    wrap: nowrap;
+  }
+  align-items: center;
+  // 6. 使用简单的计算
+  padding: $size-default * 3 0;
+  box-sizing: border-box;
+}
+
+.sass-introduction {
+  border: $border-default;
+  // 使用内置函数
+  // 比如lighten, 使用这个函数让背景色根据提供的颜色的不同来改变亮度
+  // background: #fae5ff;
+  background: lighten(map-get($colors, main), 72%);
+  padding: $size-default * 2;
+  text-align: center;
+  box-shadow: $size-tiny $size-tiny $size-tiny / 2 #ccc;
+  width: 90%;
+  box-sizing: border-box;
+  p {
+    margin: 0;
+  }
+}
+
+// .sass-introduction p {
+//   margin: 0;
+// }
+
+.sass-details {
+  border: $border-default;
+  background: #fae5ff;
+  padding: $size-default;
+  text-align: center;
+  margin: $size-default * 2 0;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.section-header {
+  border-bottom: $border-default;
+  h1 {
+    margin: 0 0 $size-default 0;
+  }
+}
+
+// .section-header h1 {
+//   margin: 0 0 1rem 0;
+// }
+
+// 1. 嵌套规则
+// SASS可以使用嵌套选择器, scss 编写完成后运行 sass main.scss main.css 将 main.scss 编译成
+// main.css. 编译完成后, 我们会发现它会自动在 main.scss 文件中加上前缀, 用来使用常规的CSS规则
+.documentation-links {
+  list-style: none;
+  margin: $size-default 0 0 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  li {
+    margin: $size-tiny 0;
+    background: white;
+  }
+
+  .documentation-link {
+    text-decoration: none;
+    // color: $main-color;
+    color: map-get($colors, main);
+    display: block;
+    padding: $size-tiny;
+    border: $border-default;
+  }
+
+  .documentation-link:hover,
+  .documentation-link:active {
+    color: white;
+    background: map-get($colors, secondary);
+    border-color: map-get($colors, secondary);
+  }
+}
+
+@media (min-width: 40rem) {
+  html {
+    font-size: 125%;
+  }
+
+  .sass-introduction,
+  .sass-details {
+    width: 30rem;
+  }
+}

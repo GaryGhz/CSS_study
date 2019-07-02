@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>uHost</title>
+    <!-- 01.favicon.png 是网站标签左上角显示的图标 -->
+    <link rel="shortcut icon" href="favicon.png">
+    <!-- 添加外部字体 -->
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <!-- 02.2. 行内样式: 写在 style 标签内, 作用与整个文件 -->
+    <!-- <style>
+        section {
+            background: #ff1b68;
+        }
+    </style> -->
+
+    <!-- 02.3. 外部CSS文件: 使用 link 标签导入
+            这是最推荐的, 一是便于管理; 二是如果你在多个页面使用同一个CSS文件, 浏览器就会缓存CSS文件, 这样就不必为每个页面重新下载CSS -->
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <main>
+        <!-- 02. 添加样式的三种方式 -->
+        <!-- 02.1. 内联样式: 内联就是你在想添加样式的元素上直接使用 style 属性 -->
+        <!-- <section style="background: #ff1b68">
+            <h1>Get the freedom you serve.</h1>
+        </section> -->
+        <section id="product-overview">
+            <h1>Get the freedom you serve.</h1>
+        </section>
+        <section>
+            <h1 class="section-title">Choose You Plan.</h1>
+            <p>Make sure you get the most for your money!</p>
+        </section>
+    </main>
+</body>
+
+</html>

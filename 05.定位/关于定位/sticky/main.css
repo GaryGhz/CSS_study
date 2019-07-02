@@ -1,0 +1,55 @@
+/* sticky 粘性定位可以视作相对定位和固定定位结合在了一起, 是他们的杂合体。 */
+
+/* 位置依据边框而定, 是否触及边框是由视口的位置决定的，  */
+
+/* 三个特性: 
+01. 保留在文档流中原来的位置, 和 relative 一样.
+02.top 这类值指的是离视口多少距离时就触发和 fixed 一样的特性.就是说我们可以在元素和
+    视口之间设置一个特定的距离, 而一旦达到这个距离, 元素就会变得像是一个固定元素了 
+03. 一旦这个元素到了父元素内容的末尾, 元素就会变回相对元素 relative, 就是说它不会
+    超过父元素的内容宽度(就是说它刚好就碰到 内边距 的内边就出不去了. 
+    也就是说, 使元素停止固定定位的行为取决于父元素内容的边界。) */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #b3b3b3;
+  padding: 15px;
+  border: 5px solid #a10a0a;
+  margin: 15px;
+  height: 2000px;
+}
+
+body {
+  background: #fa923f;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 0;
+}
+
+.parent {
+  background: white;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 10px;
+}
+
+.parent .country {
+  background: #fa923f;
+  color: white;
+  padding: 10px;
+  border: 5px solid black;
+  margin: 10px;
+  position: sticky;
+  top: 30px;
+}
+
+.parent .cities {
+  background: rgb(105, 105, 109);
+  color: white;
+  padding: 10px;
+  border: 5px solid black;
+  margin: 10px;
+}

@@ -1,0 +1,244 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+main {
+    /* 给中间的内容整体设置一个最小高度, 确保footer始终能在视口的最底端 */
+    min-height: calc(100vh - 3.7rem - 8rem);
+    /* 消除header固定定位影响 */
+    margin-top: 3.7rem;
+}
+
+/* 创建一个背景遮罩 */
+
+.backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 侧边导航栏 */
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    background: white;
+    width: 80%;
+    height: 100vh;
+}
+
+.mobile-nav__items {
+    width: 90%;
+    height: 100%;
+    list-style: none;
+    margin: 10% auto;
+    padding: 0;
+    text-align: center;
+}
+
+.mobile-nav__item {
+    margin: 1rem 0;
+}
+
+.mobile-nav__item a {
+    font-size: 1.5rem;
+}
+
+/* 切换侧边导航栏按钮 */
+
+.toggle-button {
+    width: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: middle;
+}
+
+.toggle-button:focus {
+    outline: none;
+}
+
+.toggle-button__bar {
+    width: 100%;
+    height: 0.2rem;
+    background: black;
+    display: block;
+    margin: 0.6rem 0;
+}
+
+/* header */
+
+.main-header {
+    width: 100%;
+    background: #2ddf5c;
+    padding: 0.5rem 1rem;
+    /* 一直固定到视口上方 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 设为1, 让header一直在第一个套餐的标记元素上方 */
+    z-index: 1;
+}
+
+.main-header>div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    /* 我们设置了 a 标签 font-size: 1.3rem; a 标签中的 img height: 2.7rem, 这样会导致 a 这个
+    容器的高度大于 img, 所以我们直接设置 a 标签的高度, 然后将 img 的高度设为 100% */
+    /* font-size: 1.3rem; */
+    height: 2.7rem;
+    /* 如果你将图片嵌入内联元素, 那么此时对图片设置百分比单位, 就会应用图片的默认宽度或高度的尺寸.如果你在块级元素中使用它, 就会用容器的宽度或高度*/
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand img {
+    /* height: 2.7rem; */
+    height: 100%;
+}
+
+.main-nav {
+    display: none;
+}
+
+.main-nav__items {
+    /* 覆盖无序列表的默认值 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.main-nav__item a, .mobile-nav__item a {
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 0.2rem 0;
+}
+
+.main-nav__item a:hover, .main-nav__item a:active {
+    color: white;
+    /* 为超链接增加一个下划线效果 */
+    border-bottom: 5px solid white;
+}
+
+.main-nav__item--cta a, .mobile-nav__item--cta a {
+    color: white;
+    background: #ff1b68;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.main-nav__item--cta a:hover, .main-nav__item--cta a:active, .mobile-nav__item--cta a:hover, .mobile-nav__item--cta a:active {
+    color: #ff1b68;
+    background: white;
+    border: none;
+}
+
+@media (min-width: 40rem) {
+    .toggle-button {
+        display: none;
+    }
+    .main-nav {
+        display: inline-block;
+        text-align: right;
+        width: calc(100% - 54px);
+        vertical-align: middle;
+    }
+}
+
+/* footer */
+
+.main-footer {
+    background: black;
+    /* 注意如果这里在 footer 标签上指定链接的字体颜色, 那么会被浏览器直接指定的
+    样式覆盖, 所以这就是为什么虽然继承了样式还是不生效的原因 */
+    /* color: white; */
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.main-footer__links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer__link {
+    margin: 1rem 0;
+}
+
+.main-footer__link a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-footer__link a:hover, .main-footer__link a:active {
+    color: #ccc;
+}
+
+@media (min-width: 40rem) {
+    .main-footer__link {
+        display: inline-block;
+        margin: 0 1rem;
+        vertical-align: middle;
+    }
+}
+
+/* button */
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    /* 按钮中的文本有浏览器指定的默认的样式, 这里我们让继承样式强制生效,  */
+    font: inherit;
+    border: 1.5px solid #0e4f1f;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover, .button:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+/* 当我们选中按钮时(也就是 focus 状态), 会出现一个蓝色的轮廓, 这是浏览器的默认设置 
+也就是说 focus 有一个默认的样式 outline, 轮廓与边框是相当的, 但它却不是盒子模型的一部分
+轮廓在外边距和边框之间*/
+
+.button:focus {
+    outline: none;
+}
+
+.open {
+    display: block !important;
+}

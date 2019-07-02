@@ -1,0 +1,36 @@
+/* 03.1. 继承的样式比浏览器默认样式优先级还低 */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#product-overview {
+    background: #ff1b68;
+}
+/* 03.2.2 */
+#product-overview h1 {
+    color: white;
+    font-family: 'Anton', sans-serif;
+}
+
+/* 03.2. 让 h1.section-title 使用 body 里设置的默认字体, 而不是上面 h1 设置的字体 */
+
+/* 两种方法: 
+    03.2.1 第一: 给 h1.section-title 也设置字体, font-family: inherit; 
+          inherit 表示请使用继承样式, 也就是说它规定应该从父元素继承字体系列。
+    03.2.2 第二: 与其在其他元素中排除这个样式, 不如仅仅作用于这第一个 h1 标签, 
+          这里使用组合器来选中第一个 h1 标签*/
+/* 0.3.3 组合选择器:
+           相邻兄弟选择器: div + p + ...
+           普通兄弟选择器: div ~ p
+           (直接)子选择器: div > p
+           后代选择器: div p*/
+
+.section-title {
+    color: #2ddf5c;
+    /* 03.2.1 */
+    /* font-family: inherit; */
+}
+
+/* 04 选择器优先级: 
+        内联样式 > ID选择器 > 类/伪类/属性选择器 > 标签选择器/伪元素选择器 */

@@ -1,0 +1,30 @@
+* {
+    margin: 0px;
+    /* padding: 0px; */
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+div {
+    padding: 10px 20px 30px 10px;
+    border: 2px solid salmon;
+    margin: 20px 0px 20px 0px;
+    display: inline-block;
+    /* 这里两个div设置了50%宽度, 也让左右的外边距为零了, 为什么还是不并排呢? 因为这是行内元素
+    行内元素空格换行都默认为一个字符, 所以我们需要在HTML文件中让两个文件没换行和空格, 或者
+    让div的宽度减少一些 */
+    width: 50%;
+    height: 300px;
+}
+
+.box-1 {
+    /* visibility: hidden; */
+    /* display: none; */
+}
+
+div:last-of-type:hover {
+    border-color: aqua;
+}

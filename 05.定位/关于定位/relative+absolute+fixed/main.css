@@ -1,0 +1,69 @@
+/* 关于定位: 
+HTML代码会自动应用或默认应用 position, 默认值是 static.
+绝对定位-absolute, 相对定位-relative, 固定定位-fixed, 粘性定位-sticky */
+
+/* 对于定位元素来说, 除了默认的 static 值, 其它的值都会导致元素脱离文档流, 
+一个元素脱离文档流后还是块级元素或者内联元素么? 答案是, 表现上类似于内联块, 
+可以设置宽高, 不设置宽度会收缩到内容的宽度, 但是并不会像内联块一样并排*/
+
+/* z-index: 网页上每个元素的 z-index 都自动设为默认值 0 z-index 定义了元素再 y 轴的起点;
+对没有 position 属性(这里不包括static)的元素设置 z-index 值(也就是改变默认值0), z-index 对
+这些元素是没有任何作用的*/
+
+/* fixed: 定位的基准只取决于 视口viewport, 这个元素会固定到 viewport 上*/
+
+/* absolute: 定位参考分两种情况
+01. 如果它没有添加过position属性(不包括static)的父元素, 那么它再定位上下文的参考就是相对于viewport视口作为参考, 
+    不过此时这个元素并没有固定到 viewport 上, 它仅仅是基于 viewport, 采用了 height 和 width 的百分比数值
+02. 如果它有任何已定位的父元素, 那么就以这个父元素(最近的那个)为参考 */
+
+/* relative: 自身作为定位上下文的参考点 且不会脱离文档流.
+不过正是因为没有脱离文档流, 我们可以通过再父元素设置 overflow:hidden; 确保 relative 元素
+不会跑出父元素外.
+不过这里面有一个需要注意的地方, 就是如果我们给 body 设置 overflow: hidden; 那么是不会起作用的,
+因为 CSS 默认, 如果给 body 设置 overflow: hidden; 这个设置将会直接传递到 html 元素, 这样的结果就是
+overflow: hidden; 不会作用到 body 上. 如果想生效那么就把 html 和 body 都设置 overflow: hidden.
+(这里也可以把 html 的 overflow 设置为 auto, 总而言之只要有 overflow 这个属性 body 上的设置就不会跑到 html 上)*/
+
+html {
+  background: #b3b3b3;
+  padding: 15px;
+  border: 5px solid white;
+  margin: 15px;
+  /* height: 2000px; */
+}
+
+body {
+  background: #fa923f;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 0;
+}
+
+.parent {
+  background: white;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 0;
+}
+
+.parent div {
+  background: rgb(105, 105, 109);
+  color: white;
+  padding: 10px;
+  border: 5px solid black;
+  margin: 10px;
+}
+
+.parent .child-1 {
+  position: fixed;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.parent .child-2 {
+  position: relative;
+}

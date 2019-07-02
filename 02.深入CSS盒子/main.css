@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+/* main */
+
+#product-overview {
+    background: url("./freedom.jpg");
+    width: 100%;
+    height: 528px;
+    padding: 10px;
+}
+
+#product-overview h1 {
+    color: white;
+    font-family: 'Anton', sans-serif;
+}
+
+.section-title {
+    color: #2ddf5c;
+}
+
+/* header */
+
+/* inline 行内元素设置宽高和上下(内/外)边距无效 */
+
+.main-header {
+    width: 100%;
+    background: #2ddf5c;
+    padding: 8px 16px;
+}
+
+.main-header>div {
+    display: inline-block;
+    /* 因为 header 中的 div 和 nav 都为inline-block, 所以可以让他们在header的高度中对齐
+    两个元素都设置 vertical-align: middle; (注意: vertical-align 只对行内元素有效)*/
+    vertical-align: middle;
+}
+
+.main-header__brand {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.main-nav {
+    display: inline-block;
+    text-align: right;
+    /* 如果这里width设置为100%, 那么nav的宽度就是 header 的宽度减去header的内边距 */
+    /* width: 100%; */
+    /* 所以我们这里要减去 div 的宽度, 使用减法函数 calc */
+    /* 我们用100%宽度减去 div 的宽度 48.141(也就是我们这里的49), 发现两个元素还是不在同一行 */
+    /* 注意这里有一个 inline-block 的特性: 两个相邻 inline-block 之间的空格会被看作一个字符, 
+       相当于多加了一个多余的 inline 元素, 所以这里要减去 div + 空格 的宽度(当然也可以直接删除
+       这个空格, 不过这样代码排版就不好看了), 所以我们可以稍微多减去一点宽度, 比如: 55px; */
+    /* 由于上面我们该变了 div 中文字的大小所以我们这里也需要做适当的调整 */
+    width: calc(100% - 74px);
+    vertical-align: middle;
+}
+
+.main-nav__items {
+    /* 覆盖无序列表的默认值 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0 16px;
+}
+
+.main-nav__item a {
+    /* 注意更改 a 元素下划线时, 必须在 a 元素上更改, 理论上 text-decoration 是可以继承的, 但是
+    就算继承了也会被覆盖, 因为即使浏览器内置样式优先级最低, 也是直接指向该元素的*/
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 3px 0;
+}
+
+/* 使用伪元素增添细节 */
+
+/* .main-nav__item a::after {
+    content: " (Link)";
+    color: #ff1b68;
+} */
+
+.main-nav__item a:hover, .main-nav__item a:active {
+    color: white;
+    /* 为超链接增加一个下划线效果 */
+    border-bottom: 5px solid white;
+}
+
+.main-nav__item--cta a{
+    color: white;
+    background: #ff1b68;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+.main-nav__item--cta a:hover,.main-nav__item--cta a:active{
+    color: #ff1b68;
+    background: white;
+    border: none;
+}

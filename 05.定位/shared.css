@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+/* header */
+
+.main-header {
+    width: 100%;
+    background: #2ddf5c;
+    padding: 8px 16px;
+    /* 一直固定到视口上方 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 设为1, 让header一直在第一个套餐的标记元素上方 */
+    z-index: 1;
+}
+
+.main-header>div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.main-nav {
+    display: inline-block;
+    text-align: right;
+    width: calc(100% - 74px);
+    vertical-align: middle;
+}
+
+.main-nav__items {
+    /* 覆盖无序列表的默认值 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0 16px;
+}
+
+.main-nav__item a {
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 3px 0;
+}
+
+.main-nav__item a:hover, .main-nav__item a:active {
+    color: white;
+    /* 为超链接增加一个下划线效果 */
+    border-bottom: 5px solid white;
+}
+
+.main-nav__item--cta a {
+    color: white;
+    background: #ff1b68;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.main-nav__item--cta a:hover, .main-nav__item--cta a:active {
+    color: #ff1b68;
+    background: white;
+    border: none;
+}
+
+/* footer */
+
+.main-footer {
+    background: black;
+    /* 注意如果这里再 footer 标签上指定链接的字体颜色, 那么会被浏览器直接指定的
+    样式覆盖, 所以这就是为什么虽然继承了样式还是不生效的原因 */
+    /* color: white; */
+    padding: 32px;
+    margin-top: 48px;
+}
+
+.main-footer__links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer__link {
+    display: inline-block;
+    margin: 0 16px;
+    /* vertical-align: middle; */
+}
+
+.main-footer__link a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-footer__link a:hover, .main-footer__link a:active {
+    color: #ccc;
+}
+
+/* button */
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    /* 按钮中的文本有浏览器指定的默认的样式, 这里我们让继承样式强制生效,  */
+    font: inherit;
+    border: 1.5px solid #0e4f1f;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover, .button:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+/* 当我们选中按钮时(也就是 focus 状态), 会出现一个蓝色的轮廓, 这是浏览器的默认设置 
+也就是说 focus 有一个默认的样式 outline, 轮廓与边框是相当的, 但它却不是盒子模型的一部分
+轮廓在外边距和边框之间*/
+
+.button:focus {
+    outline: none;
+}
