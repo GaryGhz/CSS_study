@@ -1,0 +1,131 @@
+@font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Regular.ttf");
+}
+
+@font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Bold.ttf");
+    font-weight: 700;
+}
+
+main {
+    padding-top: 2.5rem;
+}
+
+.background {
+    background: url(../images/plans-background.jpg) center/cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    /* 让背景图像出现在后面内容的下方 */
+    z-index: -1;
+    /* 我们给背景图像添加一个滤镜, 比如灰阶, 参数是百分比, 确定你想将图片转变的灰色有多深 */
+    filter: grayscale(40%);
+}
+
+.package {
+    position: relative;
+    width: 80%;
+    border: 4px solid #103b21;
+    border-left: none;
+    margin: 1rem 0px;
+}
+
+.package:hover, .package:active {
+    /* 第二种解决方式: 加 !important */
+    /* border-color: #ff5d51 !important; */
+    border-color: #ff5d51;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.package a {
+    text-decoration: none;
+    color: inherit;
+    /* 将a标签设置为block, 确保占满父元素所有可用空间 */
+    display: block;
+    padding: 2rem;
+}
+
+.package__title {
+    color: black;
+}
+
+.package__subtitle {
+    color: #8c8c8e;
+}
+
+.package__info {
+    border: 1px solid #4a5c4d;
+    background: white;
+    color: #354426;
+    font-size: 1.25rem;
+    padding: 1rem;
+    /* text-shadow: 2px 2px 8px #a0a0a7; */
+}
+
+.clearfix {
+    clear: both;
+}
+
+#plus {
+    background: rgba(213, 255, 220, 0.95);
+}
+
+.package__badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 1.25rem;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: white;
+    background: #ff5454;
+}
+
+#free {
+    background: rgba(234, 252, 237, 0.95);
+    float: right;
+    /* 如果再这里设置 border-left, 那么但鼠标hover时, 不会变成橙色
+    因为这里的优先级更高所以覆盖了hover的样式. 有两种解决方式:  */
+    border-left: 4px solid #103b21;
+    border-right: none;
+}
+
+/* 第一种解决方式(推荐): */
+
+#free:hover, #free:active {
+    border-left-color: #ff5d51;
+}
+
+#premium {
+    background: rgba(14, 79, 31, 0.95)
+}
+
+#premium .package__title {
+    color: white;
+}
+
+#premium .package__subtitle {
+    color: #bbb;
+}
+
+@media (min-width: 40rem) {
+    main {
+        max-width: 1500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 1500px) {
+    .package {
+        border-left: 4px solid #103b21;
+    }
+    #free {
+        border-right: 4px solid #103b21;
+    }
+    #free:hover, #free:active {
+        border-right-color: #ff5d51;
+    }
+}

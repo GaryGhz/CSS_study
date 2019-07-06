@@ -1,0 +1,374 @@
+/* 1. 主要内容
+- 族类和字体族间的区别 Generic & Font Families
+    族类是在字体族不可用的情况下, 作为字体族的备用方案, 字体族允许我们定义具体的字体, 浏览器的设置选定指定的字体族
+- 如何使用和导入字体族 Using & Importing Font Families
+- 许多不同的字体属性 Font Properties
+    font-size(字体大小), font-style(字体样式), font-weight(字体粗细), font-stretch(字体拉伸), font-variant(字体变形)
+    letter-spacing(字符间距), white-space(空白空间), line-height(行高), text-decoration(文本修饰), text-shadow(文本阴影)
+- 字体简写 Font Shorthand
+    font-style font-variant font-weight font-size/line-height font-family
+    font: italic small-caps 700 1.2rem/2 'Montserrat', sans-serif; */
+
+/* 1.1 族类和字体族
+- 族类, 它定义了一个特定的核心属性.
+- 在族类内部, 包含了多个字体族, 这些字体族它们拥有共同的属性 */
+
+/* 1.2 使用和导入字体族
+- 设置字体族时可以不加引号, 如果字体族之间有空格就必须加引号
+- 写字体族属性声明的一般模式: 首先要声明字体族, 然后加上族类, 比如 sans-serif
+- 浏览器会按照你设置的顺序依次查找, 如果你设置的字体族都没有, 那么就会使用你设置的族类, 浏览器会根据你设置的族类应用你浏览器中此族类的相应字体
+- 在font-family 的最后都指定一个族类, 这样可以确保网站上的文本一定能显示出来 */
+
+/* 1.3 建议
+- 在设置 font-family 时, 建议看看 https://www.cssfontstack.com/ 上面的各个字体族在不同浏览器上的安装率
+- font-weight 可以设置数字, 400 等于 normal, 700 等于 bold
+- 网络字体如果要设置 font-weight 或者 font-style(不过浏览器本身就可以设置font-style, 只不过有可能效果有些不同), 导入时就要注明, 比如: 
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap'); */
+
+/* 1.4 使用网络字体
+- 比如 Google Fonts : https://fonts.google.com/
+- 有两种方式导入网络字体: 
+  - (1) 在HTML文件中使用 link 标签导入 
+    - 在每个HTML文件中都使用 link 标签导入, 不过这样做很麻烦
+      <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+  - (2) 在CSS文件中使用 @import 导入
+    - 因为 shared.css 是所有页面共享的css文件, 所以我们可以在那里导入我们需要的字体文件
+      @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');*/
+
+/* 1.5 导入自定义字体
+- 我们将下载好的字体文件(.ttf)放到 packages 文件夹, 然后在 packages.css 文件中使用 @font-face 来声明这个字体
+  @font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Regular.ttf")
+}
+- 这种方式的缺点是如果你需要不同 font-weight 的字体, 就需要使用 font-face 挨个导入不同的字体文件
+- 如果我们导入了多个字体文件, 那么我们怎么区分这些导入的文件呢: 
+    正常来说浏览器和网页会以后出现的为准, 但是我们本意是想要使用多种样式的字体, 所以我们可以通过添加 font-weight 来让浏览器区分它们
+- 所以如果你在网页上添加了多个 font-face 那么就要为它们添加 font-weight, 这是区分不同字体的指标, 不然的话, 网页会一直使用最后一个 font-face 字体
+- 还有一点: 确保字体文件以小写开头, 因为大写会在IE浏览器中出现问题*/
+
+/* 1.6 字体格式
+- 其实 src 还有第二个值: format, 里面对应的是字体文件的格式名称, 比如 ttf 就是 truetype, 这部分信息是提供给浏览器的
+  @font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Regular.ttf") format("truetype");
+}
+- 除了 ttf 格式, 我们还有其他的字体格式, 每种字体格式的浏览器兼容性不一样, 所以具体可以在 https://caniuse.com/ 查询
+  - TTF/OTF : TrueType and OpenType font
+  - WOFF : Web Open Font Format -> 它是由 ttf 或 otf 压缩后产生的字体, 它的优点是: 因为经过压缩, 所以体积更小, 这会使我们网站加载的速度更快
+         字体压缩率和加载时间对我们使用自定义的 font-face 是非常重要的
+  - WOFF 2.0 : Web Open Font Format -> 它有比woff更好的压缩率, 但是兼容性不好
+- 所以一般来说我们会把三种字体格式都添加到字体系列中
+     src: url("AnonymousPro-Regular.woff2") format("woff2"),
+     url("AnonymousPro-Regular.woff") format("woff"),
+     url("AnonymousPro-Regular.ttf") format("truetype");*/
+
+/* 1.7 字体属性
+- font-variant: small-caps; 
+    定义小型大写字母文本 
+- font-stretch  
+    对当前的 font-family 进行伸缩变形。(不过如想让这个属性起作用, 需要每种字体要包含不同伸缩程度的字体项, 但是许多字体并没有包含这些伸缩项)
+- letter-spacing
+    该属性需要用长度作为值, 可以用 px 或 rem, 用来改变文本字体的间距。
+- white-space
+    设置如何处理元素内的空白, 该属性不设置长度, 设置关键字: 
+    normal - nowrap -  pre - pre-wrap - pre-line 具体效果看 MDN：https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space
+- line-height
+    - 当网页缩放为100%时, line-height 设置为 1 就等于 font-size 的大小, 还有一点 line-height 的计算不考虑小数
+    - 所以我们可以知道: line-height 的定义是 content-box 顶部与底部之间的距离
+    - 当我们使用默认值时: line-height: normal; 行高的具体值取决于我们使用的字体, 意思是不同的字体行高不一样
+    - 如果我们想让不同字体的行高一样, 那么就是用纯数字的值, 这样计算出来的值就是 font-size*具体数字 所以是一样的
+    - 当然我们也可以使用 px 或者 百分比单位, 不过不推荐百分比, 因为行高涉及到继承时, 使用百分比有时会导致意想不到的行为, 因为有时候对百分比的计算, 不是元素本身的 font-size, 而是从父元素继承来的
+    - 所以使用数字可以保证当前元素的行高是根据当前元素的 font-size 计算出来的
+- text-decoration 文本修饰
+    - underline 下划线
+    - overline 上划线
+    - line-through 贯穿线/删除线
+    - 这个属性第一个值设置具体位置的线, 第二个值可以设置线的样式, 比如 dotted(点), wavy(波浪线), 第三个值可以设置线的颜色
+      text-decoration: underline dotted red; 
+- text-shadow 文本阴影
+    - 第一和第二个值分别为 X轴和Y轴的偏移量, 第三个值为模糊效果的半径(blur-radius), 让文本形成模糊的阴影效果, 第四个值为颜色*/
+
+/* 1.8 字体简写 font
+- 字体简写必须按照一定的顺序, 有些值是可选的, 有些值是必填的
+- 两个必填值: font-size 和 font-family
+- 然后是具体顺序: font-style font-variant font-weight font-size/line-height font-family
+    font: italic small-caps 700 1.2rem/2 'Montserrat', sans-serif;
+- 另一种使用这种字体简写的方法是参照系统字体
+    该选项使用与参考字体相关的字体简写, 这些系统字体或系统字体值简单地引用应用于操作系统的不同部分的默认字体族名, 这可以是用于消息框菜单或状态栏的字体
+    比如 font: menu; 这个表示字体改为用于 mac 菜单的字体. 
+    font: status-bar;
+- 使用字体简写必须要有两个必填值, 否则不生效, 是语法错误*/
+
+/* 1.9 加载性能和 "font-display" 属性(只和自定义字体有关, 即使用"@font-face"引入的字体) 
+- 记住 "font-display" 属性只在与自定义字体相关的场景下生效
+- font-display 的值会影响自定义字体的加载行为
+- 它的值包括: swap(交换), block(阻塞), fallback(后备字体), optional(可选的), 如果没设置任何值则默认赋值为 "auto", 表示用户使用的浏览器会自动选择合适的值
+- 当加载字体时, 存在两种不同的情况: 阻塞阶段(block-period) 和 交换阶段(swap-period)
+    - swap 属性值没有阻塞阶段(阻塞阶段, 你可以想象一下: 用户正在访问我们的网站, 这时需要加载网页的内容, 因为字体并不能立刻显示, 我们会有一个阻塞阶段, 在这个
+      阻塞阶段, 文本显示所需的空间将被保留, 并使用一个不可见的后备字体(这一点很重要), 字体在那时并不可见, 但它所需的空间将被保留, 这就是阻塞阶段, 网站的样式
+      和总体结构已基本可见, 而包含文本的容器, 则已经有了正确的高度并可见, 但因为是不可见的后备字体, 文本不会显示.
+      如果没有这样一个阻塞阶段, 即 "swap" 值的情况, 后备字体会立刻显示, 这意味着一旦用户浏览我们的网站, 后备字体会"嘣”地一下出现在那里.
+      之后是交换阶段, 浏览器在这个阶段有能力将已加载的后备字体与实际的字体进行交换, 对于 "swap" 属性值来说这个阶段是无限长的(infinite), 这意味着无论花费多长时间,
+      一旦浏览器成功加载了我们想要显示的自定义字体(custom-font), 就将与后备字体进行交换, 如果不能改变, 后备字体就会一直显示
+    - block 属性值, 有一段短时间(short)的阻塞阶段, 这意味着不可见的字体已经加载完成, 尽管文本还没有显示, 但我们有一个占位符来保留空间, 之后的行为就和 "swap” 值的
+      行为一样, 我们加载后备字体(fallback), 而一旦加载成功, 浏览器会将后备字体与我们创建的自定义字体做交换
+    - fallback 值, 有一段极短(very short)的阻塞阶段, 所以不可见的字体族会被展示, 但只有一段极小的时间, 然后是后备字体, 有趣的是, 之后我们只有一段短时间的交换阶段,
+      所以只有一段很短的时间浏览器有机会加载自定义字体, 并将其与后备字体做交换, 如果浏览器能够在这一段短时间的交换阶段做到这一点, 它就可以将字体改变为自定义字体, 否
+      则后备字体就将在用户浏览期间一直显示
+    - optional, 也有一段极短的阻塞时间, 它没有交换阶段, 因为这个值允许浏览器来选择该如何做, 这基本取决于网络连接速度, 如果浏览器认为网络连接状况良好, 它可能会立即加
+        载自定义字体, 如果网络连接状况糟糕速度不够快, 浏览器可能会选择使用后备字体, 这个决定不能够逆转, 当然如果我们刷新页面就能够逆转, 但是一旦用户停留在网站中, 就
+        只能看到后备字体
+    - auto, 让浏览器全权决定, 此时大多数浏览器会选择 "block“ 值, 所以如果你没有设置 font-display 的属性值, auto 就会被使用, 浏览器会将 "block" 值作为第二选项
+    - 对于 fallback 只有一个短期的机会来交换后备字体与自定义字体
+    - 对于 "swap“ 和 "block“ 值, 只要用户还在访问网站就可以一直尝试下载自定义字体
+    - "font-display" 属性并不在实际的选择器或者元素中, 而是在 "font-face" 的引入代码中编写
+    - "font-display" 的兼容性不是很好*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+main {
+    /* 给中间的内容整体设置一个最小高度, 确保footer始终能在视口的最底端 */
+    min-height: calc(100vh - 3.7rem - 8rem);
+    /* 消除header固定定位影响 */
+    margin-top: 3.7rem;
+}
+
+/* 创建一个背景遮罩 */
+
+.backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 侧边导航栏 */
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    background: white;
+    width: 80%;
+    height: 100vh;
+}
+
+.mobile-nav__items {
+    width: 90%;
+    height: 100%;
+    list-style: none;
+    margin: 10% auto;
+    padding: 0;
+    text-align: center;
+}
+
+.mobile-nav__item {
+    margin: 1rem 0;
+}
+
+.mobile-nav__item a {
+    font-size: 1.5rem;
+}
+
+/* 切换侧边导航栏按钮 */
+
+.toggle-button {
+    width: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: middle;
+}
+
+.toggle-button:focus {
+    outline: none;
+}
+
+.toggle-button__bar {
+    width: 100%;
+    height: 0.2rem;
+    background: black;
+    display: block;
+    margin: 0.6rem 0;
+}
+
+/* header */
+
+.main-header {
+    width: 100%;
+    background: #2ddf5c;
+    padding: 0.5rem 1rem;
+    /* 一直固定到视口上方 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 设为1, 让header一直在第一个套餐的标记元素上方 */
+    z-index: 1;
+}
+
+.main-header>div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    /* 我们设置了 a 标签 font-size: 1.3rem; a 标签中的 img height: 2.7rem, 这样会导致 a 这个
+    容器的高度大于 img, 所以我们直接设置 a 标签的高度, 然后将 img 的高度设为 100% */
+    /* font-size: 1.3rem; */
+    height: 2.7rem;
+    /* 如果你将图片嵌入内联元素, 那么此时对图片设置百分比单位, 就会应用图片的默认宽度或高度的尺寸.如果你在块级元素中使用它, 就会用容器的宽度或高度*/
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand img {
+    /* height: 2.7rem; */
+    height: 100%;
+}
+
+.main-nav {
+    display: none;
+}
+
+.main-nav__items {
+    /* 覆盖无序列表的默认值 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.main-nav__item a, .mobile-nav__item a {
+    text-decoration: none;
+    color: #0e4f1f;
+    font-weight: bold;
+    padding: 0.2rem 0;
+}
+
+.main-nav__item a:hover, .main-nav__item a:active {
+    color: white;
+    /* 为超链接增加一个下划线效果 */
+    border-bottom: 5px solid white;
+}
+
+.main-nav__item--cta a, .mobile-nav__item--cta a {
+    color: white;
+    background: #ff1b68;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.main-nav__item--cta a:hover, .main-nav__item--cta a:active, .mobile-nav__item--cta a:hover, .mobile-nav__item--cta a:active {
+    color: #ff1b68;
+    background: white;
+    border: none;
+}
+
+@media (min-width: 40rem) {
+    .toggle-button {
+        display: none;
+    }
+    .main-nav {
+        display: inline-block;
+        text-align: right;
+        width: calc(100% - 54px);
+        vertical-align: middle;
+    }
+}
+
+/* footer */
+
+.main-footer {
+    background: black;
+    /* 注意如果这里在 footer 标签上指定链接的字体颜色, 那么会被浏览器直接指定的
+    样式覆盖, 所以这就是为什么虽然继承了样式还是不生效的原因 */
+    /* color: white; */
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.main-footer__links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer__link {
+    margin: 1rem 0;
+}
+
+.main-footer__link a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-footer__link a:hover, .main-footer__link a:active {
+    color: #ccc;
+}
+
+@media (min-width: 40rem) {
+    .main-footer__link {
+        display: inline-block;
+        margin: 0 1rem;
+        vertical-align: middle;
+    }
+}
+
+/* button */
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    /* 按钮中的文本有浏览器指定的默认的样式, 这里我们让继承样式强制生效,  */
+    font: inherit;
+    border: 1.5px solid #0e4f1f;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover, .button:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+/* 当我们选中按钮时(也就是 focus 状态), 会出现一个蓝色的轮廓, 这是浏览器的默认设置 
+也就是说 focus 有一个默认的样式 outline, 轮廓与边框是相当的, 但它却不是盒子模型的一部分
+轮廓在外边距和边框之间*/
+
+.button:focus {
+    outline: none;
+}
+
+.open {
+    display: block !important;
+}
