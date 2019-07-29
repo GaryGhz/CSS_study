@@ -1,0 +1,56 @@
+/* 5. 3D变换来旋转元素
+- rotateX 函数 -> 使元素绕着X轴旋转, X轴会在元素的中心位置
+- rotateY 函数 -> 使元素绕着Y轴旋转
+- perspective -> 使用它来改变我们观察旋转的视角(设置观察元素的距离)
+    - 可以在 transform 中使用 perspective() 函数, 参数为 px 或 rem 值, 值越小, 你就离元素越近
+    - 也可以单独使用 perspective 属性, 该属性只能应用于父元素
+        - 可以改变观察的角度, 使用 perspective-origin 属性
+            - 默认值为 center, 也可以使用 right, left, 还可以使用具体的 px 值, 表示把透视的中心向右移动多少像素
+    - perspective 属性的优点是你在所有子元素中拥有了相同的视角; 使用 perspective 函数的话, 应用的每一个元素都有它们自己的视角
+- 使用 translateZ 来沿竖轴移动元素
+    - 值为具体数值, 正数朝我们移动, 负数远离我们移动
+- 使用 transform style 来旋转容器
+    - 默认情况下容器内部的3D移动变换是扁平的, 如果我们让容器 transform: rotateY(90deg); 我们就看不见了子元素的3D效果
+    - 我们可以通过属性 transform-style 来改变这种形态
+        - 默认值为 flat, 意味着这个容器旋转以及其中的元素移动的时候, 它们实际上是在一个扁平的三维空间里面
+        - 可以改为 preserve-3d, 这样的话就会保留子元素的3D位置
+- 翻转元素及 “背面可见性” 
+    - 翻转元素时我们可以设置是否让元素背面可见, 通过添加 backface-visibility 属性
+    - 添加 hidden 来隐藏元素的背面
+    - 默认值为显示背面 visible*/
+
+.container {
+    position: relative;
+    margin: 150px auto;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+    perspective-origin: 500px;
+    transform: rotateY(95deg);
+    transform-style: preserve-3d;
+}
+
+.box1 {
+    position: absolute;
+    background: red;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    /* transform: perspective(1000px) rotateX(0deg) rotateY(80deg); */
+    transform: rotateY(80deg);
+    backface-visibility: hidden;
+}
+
+.box2 {
+    position: absolute;
+    background: rgb(141, 113, 113);
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    transform: translateX(1rem) translateZ(10rem) rotateX(40deg);
+}

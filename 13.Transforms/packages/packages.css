@@ -1,0 +1,165 @@
+/* 主要内容: CSS变换 -> 旋转(rotating), 移动(moving), 缩放(scaling), 扭曲(skewing), 三维变换(3D transformations) */
+
+/* 1. 基础
+- transformation 需要在一个特殊的属性里使用: transform
+- 使用 transform 属性让元素运动才会被硬件加速, 它会将元素保留在文档流中 */
+
+/* 2. 旋转元素与设置原点
+- rotate 函数 -> 默认沿着 Z轴旋转. rotate(45deg) == rotateX(45deg)
+    - rotateZ 定义沿着 Z 轴的 3D 旋转. eg: 旋转45度 ->  transform: rotateX(45deg);
+- transform-origin 定义旋转的原点: 默认值为 center
+    - 当值为正数时, 绕顺时针旋转, 为负数时, 绕逆时针旋转 
+    - 值可以为关键字 
+        eg: 以元素左上角为原点旋转 ->  transform-origin: left top;
+    - 可以为百分比 
+        eg: 以中心为原点 -> transform-origin: 50% 50%;
+    - 可以为具体数值, px 或 rem. 
+        第一个值表示从左上角向右移动多少, 第二个值表示向下移动多少 eg:transform-origin: 0 0; */
+
+/* 3. 平移操作
+- 平移: 使用 translate 函数 -> 可以添加的单位是 rem px em 百分比, 如果不加 X 或 Y, 则可以传入允许我们传入1-2个参数
+        传入一个参数将只在 X 轴移动, 传入第两个参数, 则会在 Y 轴上移动
+        translate(3.5rem, -1rem) == translateX(3.5rem)  translateY(-1rem)
+    - 注意该属性移动的方向是沿着经过元素中心点的 X 轴和 Y 轴来旋转的(所以这时候要特别注意旋转元素后的X和Y轴)
+    - translateX 让元素沿X轴移动
+    - translateY 让元素沿y轴移动 */
+
+@font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Regular.ttf");
+}
+
+@font-face {
+    font-family: "AnonymousPro";
+    src: url("AnonymousPro-Bold.ttf");
+    font-weight: 700;
+}
+
+main {
+    padding-top: 2.5rem;
+}
+
+.background {
+    background: url(../images/plans-background.jpg) center/cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    /* 让背景图像出现在后面内容的下方 */
+    z-index: -1;
+    /* 我们给背景图像添加一个滤镜, 比如灰阶, 参数是百分比, 确定你想将图片转变的灰色有多深 */
+    filter: grayscale(40%);
+}
+
+.package {
+    position: relative;
+    width: 80%;
+    border: 4px solid #103b21;
+    border-left: none;
+    margin: 1rem 0px;
+    /* 添加overflow: hidden 为了裁剪 badge 元素 */
+    overflow: hidden;
+}
+
+.package:hover, .package:active {
+    /* 第二种解决方式: 加 !important */
+    /* border-color: #ff5d51 !important; */
+    border-color: #ff5d51;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.package a {
+    text-decoration: none;
+    color: inherit;
+    /* 将a标签设置为block, 确保占满父元素所有可用空间 */
+    display: block;
+    padding: 2rem;
+}
+
+.package__title {
+    color: black;
+}
+
+.package__subtitle {
+    color: #8c8c8e;
+}
+
+.package__info {
+    border: 1px solid #4a5c4d;
+    background: white;
+    color: #354426;
+    font-size: 1.25rem;
+    padding: 1rem;
+    /* text-shadow: 2px 2px 8px #a0a0a7; */
+}
+
+.clearfix {
+    clear: both;
+}
+
+#plus {
+    background: rgba(213, 255, 220, 0.95);
+}
+
+.package__badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* margin: 1.25rem; */
+    margin: 0;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: white;
+    background: #ff5454;
+    transform: rotate(45deg) translate(3.5rem, -1rem);
+    transform-origin: center;
+    /* 添加宽度和让内容居中, 好让元素正确定位后对它进行裁剪, 这样的一体性更强 */
+    width: 12rem;
+    text-align: center;
+}
+
+#free {
+    background: rgba(234, 252, 237, 0.95);
+    float: right;
+    /* 如果再这里设置 border-left, 那么但鼠标hover时, 不会变成橙色
+    因为这里的优先级更高所以覆盖了hover的样式. 有两种解决方式:  */
+    border-left: 4px solid #103b21;
+    border-right: none;
+}
+
+/* 第一种解决方式(推荐): */
+
+#free:hover, #free:active {
+    border-left-color: #ff5d51;
+}
+
+#premium {
+    background: rgba(14, 79, 31, 0.95)
+}
+
+#premium .package__title {
+    color: white;
+}
+
+#premium .package__subtitle {
+    color: #bbb;
+}
+
+@media (min-width: 40rem) {
+    main {
+        max-width: 1500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 1500px) {
+    .package {
+        border-left: 4px solid #103b21;
+    }
+    #free {
+        border-right: 4px solid #103b21;
+    }
+    #free:hover, #free:active {
+        border-right-color: #ff5d51;
+    }
+}

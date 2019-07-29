@@ -1,0 +1,97 @@
+main {
+    padding-top: 1rem;
+}
+
+.signup-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #ff5454;
+}
+
+.signup-form {
+    padding: 1rem;
+}
+
+.signup-form label {
+    font-weight: bold;
+}
+
+/* 使用 :not() 伪类选择器, 选择除了 checkbox 之外的所有input, 因为有些样式就算 checkbox 设置了也不会有变化, 因为它这是一个特殊的元素 */
+
+.signup-form label, .signup-form select, .signup-form input:not([type="checkbox"]) {
+    display: block;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.signup-form select, .signup-form input:not([type="checkbox"]) {
+    border: 1px solid #ccc;
+    padding: 0.2rem 0.5rem;
+    /* 使用自己设定的默认字体而不是浏览器的默认字体 */
+    font: inherit;
+}
+
+/* 指定 input和 select 被选中时的样式 */
+
+.signup-form select:focus, .signup-form input:focus {
+    outline: none;
+    background: #d8f3df;
+    border-color: #2ddf5c;
+}
+
+/* .signup-form input[type="checkbox"] */
+
+.signup-form input[id*="terms"], .signup-form input[id*="terms"]+label {
+    display: inline-block;
+    /* 宽度改为auto, 不然还是会撑满父元素 */
+    width: auto;
+    vertical-align: middle;
+}
+
+/* 给 checkbox 设置样式 */
+
+.signup-form input[type="checkbox"] {
+    border: 1px solid #ccc;
+    background: white;
+    width: 1rem;
+    height: 1rem;
+    /* 禁用默认样式 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* 为 checkbox 指定 checked 时的样式 */
+
+.signup-form input[type="checkbox"]:checked {
+    background: #2ddf5c;
+    border-color: #0e4f1f;
+}
+
+/* 指定无效input的样式 */
+
+.signup-form input.invalid, .signup-form select.invalid, .signup-form :invalid {
+    /* 添加 !important 为了让它不被上面优先级更高的规则覆盖 -> .signup-form input:not([type="checkbox"]) */
+    border-color: red !important;
+    background: #faacac;
+}
+
+.signup-form button[type="submit"] {
+    display: block;
+    margin-top: 1rem;
+}
+
+@media(min-width: 40rem) {
+    .signup-form {
+        width: 25rem;
+        margin: auto;
+        padding: 0;
+    }
+}
+
+.button[disabled] {
+    cursor: not-allowed;
+    border-color: #a1a1a1;
+    background: #ccc;
+    color: #a1a1a1;
+}

@@ -1,0 +1,153 @@
+/* 1. 理解 Flex
+- Parent
+    - 如果我们将 display: flex; 添加到一个元素上, 这个元素将转变为一个所谓的 "Flex Container"
+    - display: flex
+        - 该元素内部没有设置 height 的子元素自动继承设置了 height 的子元素的 height, 设置了高度的保持不变
+        - 子元素的宽度随着父元素的变化而变化, 最大宽度不超过子元素本身设置的 width
+    - display: inline-flex
+        - 子元素不能自适应的改变大小, 因为现在大小是由定义的实际宽度预定义, 父元素也是一样, 它只是用于所有内容显示所需的空间
+        - 子元素的高度仍是根据已定义了的最高高度的子元素为准的
+    - 可以应用的属性:
+        - flex-flow 
+            - 是 flex-direction 和 flex-wrap 的简写形式: flex-flow: row wrap;
+        - justify-content
+            - 设置或检索弹性盒子元素在 "主轴（横轴）" 方向上的对齐方式。
+        - align-content
+            - 让我们项目整体可以沿交叉轴对齐我们的弹性元素
+            - 容器内必须有多行的项目，该属性才能渲染出效果。
+        - align-items
+            - 该属性设置项目在其包含块中在 "交叉轴" 方向上的对齐方式。
+            - 默认值是 stretch
+            - 可以设置为 center, 会使元素沿着交叉轴进行居中对齐
+            - 设置为 flex-start, 会使元素沿着交叉轴起点进行对齐
+            - 设置为 flex-end, 和上面正好相反
+        - align-content 和 align-items 的区别
+            - align-items属性适用于所有的flex容器，它是用来设置每个flex元素在交叉轴上的默认对齐方式。
+            - align-items和align-content有相同的功能，不过不同点是align-items是用来让每一个单行的容器居中而不是让整个容器居中。
+            - align-content属性只适用于多行的flex容器，并且当交叉轴上有多余空间使flex容器内的flex线对齐。
+- Children
+    - 这个元素的子元素就叫做 "Flex Items"
+    - 可以应用的属性:
+        - order
+            - 用来指定子项目的顺序, 所有元素默认值为 0, 可以为负, order 的数值越大元素就越靠后
+        - flex
+            - 是 flex-grow && flex-shrink && flex-basis 的简写形式: flex: 0 1 auto;
+            - flex-grow
+                - 给元素分配剩余空间的占有比例,参数为数字, 默认为 0
+                - 如果 flex-wrap 值为 wrap, 那么当宽度缩小到元素设置的宽度后, 就会换行, 这个时候, 到下一行的元素宽度就会占满整个页面
+            - flex-shrink
+                - 定义了当子项宽度减少时元素的行为(元素宽度的默认行为是: 当元素缩小到内容占据的宽度就不会继续缩小了)
+                - 该属性的默认值为 1
+                - 如果我们将一个元素的 flex-shrink 设置为 0, 那么这个元素的宽度就不会小于设定的宽度值
+                - 这个属性首先允许你指定是否允许一个元素发生收缩(收缩指元素宽度减小到小于默认宽度), 然后当你为元素的该属性
+                    设置一个非 0 的数值时, 那样首先会允许我们的元素收缩, 当你为不同元素设置大于 1 的属性值时, 可以定义相较于
+                    其他元素这个元素允许收缩多少
+            - flex-basis
+                - 这个属性指的都是主轴, 默认值为 auto, 此时对元素没影响. 当主轴方向为 row 时, 表示width, 为column时, 表示 height
+                - 根据主轴来决定元素的大小, 因此 flex-basis 不是宽度或高度, 它同时决定宽度和高度, 具体数值由 flex-direction 决定
+                - 如果我们设置了 flex-basis: 300px; 并且 flex-direction: row; flex-basis 就会覆盖 width 默认值
+                - 如果 flex-direction: column; 那么 flex-basis 就是设置的 height
+                - 也可以用百分比作为值, 被封闭的参照物就是 flex-container
+        - align-self
+            - 沿着交叉轴对齐一个弹性元素, 和 align-items 大致效果一样, 不同的是 align-items 作用于所有元素项, align-self 允许我们定义单个元素的位置
+*/
+
+/* 2. 细节
+- 当我们设置了 display: flex; 后, 会自动设置两个属性: flex-direction: row; flex-wrap: no-wrap;
+- flex-direction 
+    指定了内部元素是如何在 flex 容器中布局的, 有四个值: row,  column, row-reverse, column-reverse
+- flex-wrap 
+    设置元素是否该换行和怎样换行, 有三个值: no-wrap, wrap, wrap-reverse */
+
+* {
+    box-sizing: border-box;
+    font-size: 1.5rem;
+}
+
+html {
+    background: #b3b3b3;
+    padding: 5px;
+}
+
+body {
+    background: #b3b3b3;
+    padding: 5px;
+    margin: 0;
+}
+
+.flex-container {
+    background: white;
+    padding: 10px;
+    border: 5px solid black;
+    height: 800px;
+    display: flex;
+    /* flex-flow: row nowrap; */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /* 交叉轴对齐方式 */
+    align-items: center;
+    /* 主轴对齐方式 */
+    justify-content: flex-start;
+}
+
+.item-1 {
+    background: #ff7300;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+}
+
+.item-2 {
+    background: #ff9640;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 250px;
+    font-size: 1.8rem;
+}
+
+.item-3 {
+    background: #ff9640;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    height: 250px;
+    /* align-self: flex-start; */
+}
+
+.item-4 {
+    background: #f5c096;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 300px;
+    height: 300px;
+    order: -1;
+}
+
+.item-5 {
+    background: #d3c0b1;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 350px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.item-6 {
+    background: #d3c0b1;
+    color: white;
+    padding: 10px;
+    border: 5px solid black;
+    margin: 10px;
+    width: 350px;
+    flex-grow: 3;
+    /* 它的收缩比例是上面 item-5 的三倍 */
+    flex-shrink: 3;
+}

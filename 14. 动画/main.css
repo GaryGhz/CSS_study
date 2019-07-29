@@ -1,0 +1,235 @@
+/* 1. Transitions 过渡 & Animations 动画  */
+
+/* 1.1 Transitions
+- 可以认为是内置动画, 是通过添加属性 transition 并指定比如不透明度和元素位置等其他属性来实现的, 如果变化能够被追踪到, 就可以制作成动画
+- transition 可以设置的属性, 最多可以设置4个
+    - 第一个值就是: 哪个属性是想先看到的, 如果是全部就设置为all, 特定属性就写那个属性的名字, 比如 opacity, 可以写多个, 中间用逗号隔开
+        transition: opacity, transform;
+    - 然后设置动画持续的时间, 可以设置 s 也可以设置 ms
+        transition: opacity 200ms, transform 500ms;
+    - 第三个可以设置相应时间内的动画变化速度, 比如开始快, 结束慢 -> ease-out; 或者 ease-in 慢慢开始快速结束
+        transition: opacity 200ms ease-out, transform 500ms;
+    - 最后可以设置延迟, 值为 s 或者 ms, 就是点击后多久开始动画和结束动画
+        transition: opacity 200ms ease-out 1s, transform 500ms 1s;
+- 计时函数 -> https://easings.net/ 
+- display 属性的该变不能添加过渡动画, 比如你设置了元素从 display: none; 到 display: block; 这时过渡就会不起作用
+    如果你想要过渡起作用, 就在JS文件中更改 display 属性, 然后添加具体类时使用 setTimeout 函数. 具体见 shared.js*/
+
+/* 2. 使用JavaScript动画事件监听器
+- 具体看 shared.js, 动画有三个事件: animationstart, animationiteration, animationend
+- 这个事件里有一些很有用的属性, 比如: 你可以知道每次动画过后的累计时间(elapsedTime), 如果你想在JavaScript代码中计时, 那么这会非常有用*/
+
+/* 对话框 */
+
+.modal {
+    opacity: 0;
+    transform: translateY(-3rem);
+    transition: opacity 200ms ease-out, transform 500ms ease-out;
+    position: fixed;
+    /* display: none; */
+    z-index: 200;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    background: white;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.modal__title {
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+.modal__actions {
+    text-align: center;
+}
+
+.modal__action {
+    border: 1px solid #0e4f1f;
+    background: #0e4f1f;
+    text-decoration: none;
+    color: white;
+    font: inherit;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.modal__action:hover, .modal__action:active {
+    background: #2ddf5c;
+    border-color: #2ddf5c;
+}
+
+.modal__action--negative {
+    background: red;
+    border-color: red;
+}
+
+.modal__action--negative:hover, .modal__action--negative:active {
+    background: #ff5454;
+    border-color: #ff5454;
+}
+
+/* main */
+
+/* main-section-1 */
+
+#product-overview {
+    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent), url("./images/freedom.jpg") center/cover border-box no-repeat, #ff1b68;
+    /* width: 100vw; */
+    height: 33vh;
+    position: relative;
+}
+
+#product-overview h1 {
+    color: white;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    font-size: 1.6rem;
+}
+
+/* 指定设备方向 orientation 处于横屏 landscape（宽度大于高度）模式还是竖屏 portrait（高度大于宽度）模式。 */
+
+@media (min-width: 40rem) and (min-height: 40rem) {
+    #product-overview {
+        height: 40vh;
+        background-position: 50% 25%;
+    }
+    #product-overview h1 {
+        font-size: 3rem;
+    }
+}
+
+/* main-plans */
+
+/* main-section-2 */
+
+.section-title {
+    color: #2ddf5c;
+    text-align: center;
+}
+
+.plan {
+    background: #d5ffdc;
+    text-align: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+.plan--highlighted {
+    background: #19b84c;
+    color: white;
+}
+
+.plan__annotation {
+    background: white;
+    color: #19b84c;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.plan__title {
+    color: #0e4f1f;
+}
+
+.plan__price {
+    color: #918f8f;
+}
+
+.plan--highlighted .plan__title {
+    color: white;
+}
+
+.plan--highlighted .plan__price {
+    color: #0e4f1f;
+}
+
+.plan__features {
+    list-style: none;
+    /* 清楚列表默认的margin和padding */
+    margin: 0;
+    padding: 0;
+}
+
+.plan__feature {
+    margin: 0.5rem 0;
+}
+
+@media (min-width: 40rem) {
+    .plan__list {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .plan {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 30%;
+        height: 28rem;
+        border-radius: 16px;
+        margin: 0.5rem 0.2rem;
+        min-width: 12.5rem;
+        max-width: 25rem;
+    }
+    .plan--highlighted {
+        height: 30rem;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+        /* z-index: 50; */
+    }
+}
+
+/* main-section-3 */
+
+#key-features {
+    background: #ff1b68;
+    margin-top: 5rem;
+    padding: 1rem;
+}
+
+#key-features .section-title {
+    color: white;
+    margin: 2rem;
+}
+
+.key-feature__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.key-feature__image {
+    background: #ffcede;
+    width: 128px;
+    height: 128px;
+    border: 2px solid #424242;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding: 1.25rem;
+}
+
+.key-feature__description {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+    .key-feature__list {
+        display: flex;
+        justify-content: center;
+    }
+    .key-feature {
+        width: 30%;
+        max-width: 25rem;
+    }
+}
