@@ -5,10 +5,10 @@
 - 使用 transform 属性让元素运动才会被硬件加速, 它会将元素保留在文档流中 */
 
 /* 2. 旋转元素与设置原点
-- rotate 函数 -> 默认沿着 Z轴旋转. rotate(45deg) == rotateX(45deg)
-    - rotateZ 定义沿着 Z 轴的 3D 旋转. eg: 旋转45度 ->  transform: rotateX(45deg);
-- transform-origin 定义旋转的原点: 默认值为 center
+- rotate 函数 -> 默认沿着 Z轴旋转. rotate(45deg) == rotateZ(45deg)
+    - rotateZ 定义沿着 Z 轴的 3D 旋转. eg: 旋转45度 ->  transform: rotateZ(45deg);
     - 当值为正数时, 绕顺时针旋转, 为负数时, 绕逆时针旋转 
+- transform-origin 定义旋转的原点: 默认值为 center
     - 值可以为关键字 
         eg: 以元素左上角为原点旋转 ->  transform-origin: left top;
     - 可以为百分比 
@@ -120,7 +120,7 @@ main {
 #free {
     background: rgba(234, 252, 237, 0.95);
     float: right;
-    /* 如果再这里设置 border-left, 那么但鼠标hover时, 不会变成橙色
+    /* 如果再这里设置 border-left, 那么一旦鼠标hover时, 不会变成橙色
     因为这里的优先级更高所以覆盖了hover的样式. 有两种解决方式:  */
     border-left: 4px solid #103b21;
     border-right: none;
